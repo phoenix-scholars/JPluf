@@ -17,40 +17,36 @@ import retrofit.mime.TypedFile;
 public interface IResourceService {
 
 	@Multipart
-	@POST("/api/saas/app/{appId}/resource/create")
-	RResource create(@Path("appId") Long appId, @Part("file") TypedFile file, @Part("description") String description);
+	@POST("/api/saas/resource/create")
+	RResource create(@Part("file") TypedFile file, @Part("description") String description);
 
 	@Multipart
-	@POST("/api/saas/app/{appId}/resource/create")
-	void create(@Path("appId") Long appId, @Part("file") TypedFile file, @Part("description") String description,
-			Callback<RResource> callback);
+	@POST("/api/saas/resource/create")
+	void create(@Part("file") TypedFile file, @Part("description") String description, Callback<RResource> callback);
 
-	@GET("/api/saas/app/{appId}/resource/{resourceId}")
-	RResource get(@Path("appId") Long appId, @Path("resourceId") Long resourceId);
+	@GET("/api/saas/resource/{resourceId}")
+	RResource get(@Path("resourceId") Long resourceId);
 
-	@GET("/api/saas/app/{appId}/resource/{resourceId}")
-	void get(@Path("appId") Long appId, @Path("resourceId") Long resourceId, Callback<RResource> callback);
-
-	@FormUrlEncoded
-	@POST("/api/saas/app/{appId}/resource/{resourceId}")
-	RResource update(@Path("appId") Long appId, @Path("resourceId") Long resourceId,
-			@FieldMap Map<String, Object> param);
+	@GET("/api/saas/resource/{resourceId}")
+	void get(@Path("resourceId") Long resourceId, Callback<RResource> callback);
 
 	@FormUrlEncoded
-	@POST("/api/saas/app/{appId}/resource/{resourceId}")
-	void update(@Path("appId") Long appId, @Path("resourceId") Long resourceId, @FieldMap Map<String, Object> param,
-			Callback<RResource> callback);
+	@POST("/api/saas/resource/{resourceId}")
+	RResource update(@Path("resourceId") Long resourceId, @FieldMap Map<String, Object> param);
 
-	@DELETE("/api/saas/app/{appId}/resource/{resourceId}")
-	RResource delete(@Path("appId") Long appId, @Path("resourceId") Long resourceId);
+	@FormUrlEncoded
+	@POST("/api/saas/resource/{resourceId}")
+	void update(@Path("resourceId") Long resourceId, @FieldMap Map<String, Object> param, Callback<RResource> callback);
 
-	@DELETE("/api/saas/app/{appId}/resource/{resourceId}")
-	void delete(@Path("appId") Long appId, @Path("resourceId") Long resourceId, Callback<RResource> callback);
+	@DELETE("/api/saas/resource/{resourceId}")
+	RResource delete(@Path("resourceId") Long resourceId);
 
-	@GET("/api/saas/app/{appId}/resource/find")
-	RResourcePaginatorPage find(@Path("appId") Long appId, @QueryMap Map<String, Object> param);
+	@DELETE("/api/saas/resource/{resourceId}")
+	void delete(@Path("resourceId") Long resourceId, Callback<RResource> callback);
 
-	@GET("/api/saas/app/{appId}/resource/find")
-	void find(@Path("appId") Long appId, @QueryMap Map<String, Object> param,
-			Callback<RResourcePaginatorPage> callback);
+	@GET("/api/saas/resource/find")
+	RResourcePaginatorPage find(@QueryMap Map<String, Object> param);
+
+	@GET("/api/saas/resource/find")
+	void find(@QueryMap Map<String, Object> param, Callback<RResourcePaginatorPage> callback);
 }

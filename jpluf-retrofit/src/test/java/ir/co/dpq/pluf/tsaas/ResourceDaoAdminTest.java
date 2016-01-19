@@ -21,8 +21,6 @@ import ir.co.dpq.pluf.retrofit.PErrorHandler;
 import ir.co.dpq.pluf.retrofit.saas.IResourceService;
 import ir.co.dpq.pluf.retrofit.user.IRUserService;
 import ir.co.dpq.pluf.saas.IPResourceDao;
-import ir.co.dpq.pluf.saas.IPTenantDao;
-import ir.co.dpq.pluf.saas.PTenant;
 import ir.co.dpq.pluf.test.saas.PResourceDaoTest;
 import ir.co.dpq.pluf.user.PUser;
 import retrofit.RestAdapter;
@@ -66,25 +64,6 @@ public class ResourceDaoAdminTest extends PResourceDaoTest {
 
 		resourceDaoRetrofit = new PResourceDaoRetrofit();
 		resourceDaoRetrofit.setResourceService(resourceService);
-		resourceDaoRetrofit.setTenantDao(new IPTenantDao() {
-			@Override
-			public PTenant setCurrent(Long id) {
-				return null;
-			}
-
-			@Override
-			public PTenant get(Long id) {
-				return null;
-			}
-
-			@Override
-			public PTenant current() {
-				PTenant tenant = new PTenant();
-				tenant.setId(1l);
-				tenant.setTitle("my app");
-				return tenant;
-			}
-		});
 		resourceDaoRetrofit.setConfigurationService(new IRConfigurationService() {
 			@Override
 			public String getEndpoint() {

@@ -4,7 +4,6 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import ir.co.dpq.pluf.retrofit.Assert;
 import ir.co.dpq.pluf.retrofit.IRConfigurationService;
 import ir.co.dpq.pluf.retrofit.RPaginatorParameter;
 import ir.co.dpq.pluf.retrofit.Util;
@@ -12,9 +11,7 @@ import ir.co.dpq.pluf.retrofit.saas.IResourceService;
 import ir.co.dpq.pluf.retrofit.saas.RResource;
 import ir.co.dpq.pluf.retrofit.saas.RResourcePaginatorPage;
 import ir.co.dpq.pluf.saas.IPResourceDao;
-import ir.co.dpq.pluf.saas.IPTenantDao;
 import ir.co.dpq.pluf.saas.PResource;
-import ir.co.dpq.pluf.saas.PTenant;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -23,8 +20,6 @@ import retrofit.mime.TypedFile;
 public class PResourceDaoRetrofit implements IPResourceDao {
 
 	IResourceService resourceService;
-
-	IPTenantDao tenantDao;
 
 	IRConfigurationService configurationService;
 
@@ -42,9 +37,7 @@ public class PResourceDaoRetrofit implements IPResourceDao {
 	 */
 	@Override
 	public PResource create(PResource resource) {
-		PTenant tenant = tenantDao.current();
-		Assert.assertNotNull(tenantDao, "Current tenant is not set?!");
-		return resourceService.create(tenant.getId(), getFileType(resource), resource.getDescription());
+		return resourceService.create(getFileType(resource), resource.getDescription());
 	}
 
 	/*
@@ -56,20 +49,17 @@ public class PResourceDaoRetrofit implements IPResourceDao {
 	 */
 	@Override
 	public void create(PResource resource, final IPCallback<PResource> callback) {
-		PTenant tenant = tenantDao.current();
-		Assert.assertNotNull(tenantDao, "Current tenant is not set?!");
-		resourceService.create(tenant.getId(), getFileType(resource), resource.getDescription(),
-				new Callback<RResource>() {
-					@Override
-					public void success(RResource t, Response response) {
-						callback.success(t);
-					}
+		resourceService.create(getFileType(resource), resource.getDescription(), new Callback<RResource>() {
+			@Override
+			public void success(RResource t, Response response) {
+				callback.success(t);
+			}
 
-					@Override
-					public void failure(RetrofitError error) {
-						callback.failure(new PException("Fail to delete resouce", error));
-					}
-				});
+			@Override
+			public void failure(RetrofitError error) {
+				callback.failure(new PException("Fail to delete resouce", error));
+			}
+		});
 	}
 
 	/*
@@ -79,9 +69,7 @@ public class PResourceDaoRetrofit implements IPResourceDao {
 	 */
 	@Override
 	public PResource get(Long id) {
-		PTenant tenant = tenantDao.current();
-		Assert.assertNotNull(tenantDao, "Current tenant is not set?!");
-		return resourceService.get(tenant.getId(), id);
+		return resourceService.get(id);
 	}
 
 	/*
@@ -92,9 +80,7 @@ public class PResourceDaoRetrofit implements IPResourceDao {
 	 */
 	@Override
 	public void get(Long id, final IPCallback<PResource> callback) {
-		PTenant tenant = tenantDao.current();
-		Assert.assertNotNull(tenantDao, "Current tenant is not set?!");
-		resourceService.get(tenant.getId(), id, new Callback<RResource>() {
+		resourceService.get(id, new Callback<RResource>() {
 			@Override
 			public void success(RResource t, Response response) {
 				callback.success(t);
@@ -115,9 +101,7 @@ public class PResourceDaoRetrofit implements IPResourceDao {
 	 */
 	@Override
 	public PResource delete(PResource resource) {
-		PTenant tenant = tenantDao.current();
-		Assert.assertNotNull(tenantDao, "Current tenant is not set?!");
-		return resourceService.delete(tenant.getId(), resource.getId());
+		return resourceService.delete(resource.getId());
 	}
 
 	/*
@@ -129,9 +113,7 @@ public class PResourceDaoRetrofit implements IPResourceDao {
 	 */
 	@Override
 	public void delete(PResource resource, final IPCallback<PResource> callback) {
-		PTenant tenant = tenantDao.current();
-		Assert.assertNotNull(tenantDao, "Current tenant is not set?!");
-		resourceService.delete(tenant.getId(), resource.getId(), new Callback<RResource>() {
+		resourceService.delete(resource.getId(), new Callback<RResource>() {
 			@Override
 			public void success(RResource t, Response response) {
 				callback.success(t);
@@ -152,10 +134,8 @@ public class PResourceDaoRetrofit implements IPResourceDao {
 	 */
 	@Override
 	public PResource update(PResource resource) {
-		PTenant tenant = tenantDao.current();
-		Assert.assertNotNull(tenantDao, "Current tenant is not set?!");
 		RResource rr = Util.toRObject(resource);
-		return resourceService.update(tenant.getId(), resource.getId(), rr.toMap());
+		return resourceService.update(resource.getId(), rr.toMap());
 	}
 
 	/*
@@ -167,10 +147,8 @@ public class PResourceDaoRetrofit implements IPResourceDao {
 	 */
 	@Override
 	public void update(PResource resource, final IPCallback<PResource> callback) {
-		PTenant tenant = tenantDao.current();
-		Assert.assertNotNull(tenantDao, "Current tenant is not set?!");
 		RResource rr = Util.toRObject(resource);
-		resourceService.update(tenant.getId(), resource.getId(), rr.toMap(), new Callback<RResource>() {
+		resourceService.update(resource.getId(), rr.toMap(), new Callback<RResource>() {
 			@Override
 			public void success(RResource t, Response response) {
 				callback.success(t);
@@ -185,9 +163,8 @@ public class PResourceDaoRetrofit implements IPResourceDao {
 
 	@Override
 	public URL getFile(PResource resource) {
-		String path = String.format("%s/api/saas/app/%d/resource/%d/download", //
+		String path = String.format("%s/api/saas/resource/%d/download", //
 				configurationService.getEndpoint(), //
-				tenantDao.current().getId(), //
 				resource.getId());//
 		try {
 			return new URL(path);
@@ -198,18 +175,14 @@ public class PResourceDaoRetrofit implements IPResourceDao {
 
 	@Override
 	public IPPaginatorPage<PResource> find(PPaginatorParameter param) {
-		PTenant tenant = tenantDao.current();
-		Assert.assertNotNull(tenantDao, "Current tenant is not set?!");
 		RPaginatorParameter rparams = Util.toRObject(param);
-		return resourceService.find(tenant.getId(), rparams.toMap());
+		return resourceService.find(rparams.toMap());
 	}
 
 	@Override
 	public void find(PPaginatorParameter param, final IPCallback<IPPaginatorPage<PResource>> callback) {
-		PTenant tenant = tenantDao.current();
-		Assert.assertNotNull(tenantDao, "Current tenant is not set?!");
 		RPaginatorParameter rparams = Util.toRObject(param);
-		resourceService.find(tenant.getId(), rparams.toMap(), new Callback<RResourcePaginatorPage>() {
+		resourceService.find(rparams.toMap(), new Callback<RResourcePaginatorPage>() {
 
 			@Override
 			public void success(RResourcePaginatorPage t, Response response) {
@@ -225,10 +198,6 @@ public class PResourceDaoRetrofit implements IPResourceDao {
 
 	public void setResourceService(IResourceService resourceService) {
 		this.resourceService = resourceService;
-	}
-
-	public void setTenantDao(IPTenantDao tenantDao) {
-		this.tenantDao = tenantDao;
 	}
 
 	public void setConfigurationService(IRConfigurationService configurationService) {
