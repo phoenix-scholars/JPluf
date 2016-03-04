@@ -106,7 +106,7 @@ public class PWikiBookDaoRetrofit implements IPWikiBookDao {
 	}
 
 	@Override
-	public PWikiPage addCategoryToBook(PWikiBook book, PCategory category) {
+	public PWikiPage addBookToCategory(PWikiBook book, PCategory category) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -180,8 +180,9 @@ public class PWikiBookDaoRetrofit implements IPWikiBookDao {
 		return null;
 	}
 
-	public void setWikiBookService(IRWikiBookService wikiBookService) {
+	public PWikiBookDaoRetrofit setWikiBookService(IRWikiBookService wikiBookService) {
 		this.wikiBookService = wikiBookService;
+		return this;
 	}
 
 }

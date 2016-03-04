@@ -148,7 +148,7 @@ public class PWikiBookDaoOrmlit implements IPWikiBookDao {
 	}
 
 	@Override
-	public PWikiPage addCategoryToBook(PWikiBook book, PCategory category) {
+	public PWikiPage addBookToCategory(PWikiBook book, PCategory category) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -33,7 +33,7 @@ public interface IPWikiBookDao {
 
 	PWikiBook deleteLabelFromBook(PWikiBook book, PLabel label);
 
-	PWikiPage addCategoryToBook(PWikiBook book, PCategory category);
+	PWikiPage addBookToCategory(PWikiBook book, PCategory category);
 
 	PWikiPage deleteCategoryFromBook(PWikiBook book, PCategory category);
 
