@@ -1,5 +1,6 @@
 package ir.co.dpq.pluf;
 
+import java.util.HashMap;
 import java.util.List;
 
 import ir.co.dpq.pluf.km.PCategory;
@@ -80,6 +81,8 @@ public class PWikiBookDaoRetrofit implements IPWikiBookDao {
 	 */
 	@Override
 	public IPPaginatorPage<PWikiBook> findWikiBook(PPaginatorParameter param) {
+		if(param == null)
+			return wikiBookService.findWikiBook(new HashMap<String, Object>());
 		RPaginatorParameter rparams = Util.toRObject(param);
 		return wikiBookService.findWikiBook(rparams.toMap());
 	}
