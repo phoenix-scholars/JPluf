@@ -253,9 +253,8 @@ public class PWikiBookDaoRetrofit implements IPWikiBookDao {
 	}
 
 	@Override
-	public PWikiBook deletePageFromBook(PWikiBook book, PWikiPage page, IPCallback<PWikiBook> callback) {
+	public void deletePageFromBook(PWikiBook book, PWikiPage page, IPCallback<PWikiBook> callback) {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -287,18 +286,6 @@ public class PWikiBookDaoRetrofit implements IPWikiBookDao {
 	public PWikiBook deleteInterestedUser(PWikiBook book) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public IPPaginatorPage<PWikiPageItem> getBookPages(Long bookId, PPaginatorParameter param) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void getBookPages(Long bookId, PPaginatorParameter param, IPPaginatorPage<PWikiPageItem> callback) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

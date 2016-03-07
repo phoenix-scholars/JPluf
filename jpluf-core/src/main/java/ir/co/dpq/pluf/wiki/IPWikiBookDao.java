@@ -60,7 +60,7 @@ public interface IPWikiBookDao {
 	void addPageToBook(PWikiBook book, PWikiPage page, IPCallback<PWikiBook> callback);
 
 	PWikiBook deletePageFromBook(PWikiBook book, PWikiPage page);
-	PWikiBook deletePageFromBook(PWikiBook book, PWikiPage page, IPCallback<PWikiBook> callback);
+	void deletePageFromBook(PWikiBook book, PWikiPage page, IPCallback<PWikiBook> callback);
 
 	PWikiBook addInterestedUser(PWikiBook book);
 	void addInterestedUser(PWikiBook book, IPCallback<PWikiBook> callback);
