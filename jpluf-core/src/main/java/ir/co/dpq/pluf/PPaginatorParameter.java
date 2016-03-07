@@ -51,24 +51,27 @@ public class PPaginatorParameter {
 		return query;
 	}
 
-	public void setQuery(String query) {
+	public PPaginatorParameter setQuery(String query) {
 		this.query = query;
+		return this;
 	}
 
 	public int getPage() {
 		return page;
 	}
 
-	public void setPage(int page) {
+	public PPaginatorParameter setPage(int page) {
 		this.page = page;
+		return this;
 	}
 
 	public String getSortKey() {
 		return sortKey;
 	}
 
-	public void setSortKey(String sortKey) {
+	public PPaginatorParameter setSortKey(String sortKey) {
 		this.sortKey = sortKey;
+		return this;
 	}
 
 	public PSortOrder getSortOrder() {
@@ -77,24 +80,27 @@ public class PPaginatorParameter {
 		return sortOrder;
 	}
 
-	public void setSortOrder(PSortOrder sortOrder) {
+	public PPaginatorParameter setSortOrder(PSortOrder sortOrder) {
 		this.sortOrder = sortOrder;
+		return this;
 	}
 
 	public String getFilterKey() {
 		return filterKey;
 	}
 
-	public void setFilterKey(String filterKey) {
+	public PPaginatorParameter setFilterKey(String filterKey) {
 		this.filterKey = filterKey;
+		return this;
 	}
 
 	public String getFilterValue() {
 		return filterValue;
 	}
 
-	public void setFilterValue(String filterValue) {
+	public PPaginatorParameter setFilterValue(String filterValue) {
 		this.filterValue = filterValue;
+		return this;
 	}
 
 	/**
@@ -103,17 +109,19 @@ public class PPaginatorParameter {
 	 * @param key
 	 * @param value
 	 */
-	public void setFilter(String key, String value) {
+	public PPaginatorParameter setFilter(String key, String value) {
 		setFilterKey(key);
 		setFilterValue(value);
+		return this;
 	}
 
 	public int getItemPerPage() {
 		return itemPerPage;
 	}
 
-	public void setItemPerPage(int itemPerPage) {
+	public PPaginatorParameter setItemPerPage(int itemPerPage) {
 		this.itemPerPage = itemPerPage;
+		return this;
 	}
 
 }
