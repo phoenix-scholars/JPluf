@@ -5,6 +5,7 @@ import java.util.Map;
 
 import ir.co.dpq.pluf.km.PCategory;
 import ir.co.dpq.pluf.km.PLabel;
+import ir.co.dpq.pluf.retrofit.user.RUser;
 import ir.co.dpq.pluf.user.PUser;
 import ir.co.dpq.pluf.wiki.PWikiPage;
 import ir.co.dpq.pluf.wiki.PWikiPageItem;
@@ -52,10 +53,10 @@ public interface IRWikiBookService {
 	RWikiBook deleteLabelFromBook(@Path("bookId") long bookId, @Path("labelId") long labelId);
 
 	@POST("/api/wiki/book/{bookId}/category/{categoryId}")
-	PWikiPage addCategoryToBook(@Path("bookId") long bookId, @Path("categoryId") long categoryId);
+	RWikiBook addCategoryToBook(@Path("bookId") long bookId, @Path("categoryId") long categoryId);
 
 	@DELETE("/api/wiki/book/{bookId}/category/{categoryId}")
-	PWikiPage deleteCategoryFromBook(@Path("bookId") long bookId, @Path("categoryId") long categoryId);
+	RWikiBook deleteCategoryFromBook(@Path("bookId") long bookId, @Path("categoryId") long categoryId);
 
 	@GET("/api/wiki/book/{bookId}/categories")
 	Map<String, PCategory> getBookCategories(@Path("bookId") long bookId);
@@ -64,16 +65,16 @@ public interface IRWikiBookService {
 	List<PWikiPageItem> getBookPages(@Path("bookId") long bookId);
 
 	@POST("/api/wiki/book/{bookId}/page/{pageId}")
-	PWikiPage addPageToBook(@Path("bookId") long bookId, @Path("pageId") long pageId);
+	RWikiBook addPageToBook(@Path("bookId") long bookId, @Path("pageId") long pageId);
 
 	@DELETE("/api/wiki/book/{bookId}/page/{pageId}")
-	PWikiPage deletePageFromBook(@Path("bookId") long bookId, @Path("pageId") long pageId);
+	RWikiBook deletePageFromBook(@Path("bookId") long bookId, @Path("pageId") long pageId);
 
 	@POST("/api/wiki/book/{bookId}/interested")
-	PWikiPage addInterestedUser(@Path("bookId") long bookId);
+	RUser addInterestedUser(@Path("bookId") long bookId);
 
 	@DELETE("/api/wiki/book/{bookId}/interested")
-	PWikiPage deleteInterestedUser(@Path("bookId") long bookId);
+	RUser deleteInterestedUser(@Path("bookId") long bookId);
 
 	@GET("/api/wiki/book/{bookId}/interesteds")
 	Map<String, PUser> getBookInteresteds(@Path("bookId") long bookId);

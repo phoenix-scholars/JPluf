@@ -135,7 +135,7 @@ public class PWikiBookDaoRetrofit implements IPWikiBookDao {
 	 * PWikiBook, ir.co.dpq.pluf.wiki.PWikiPage)
 	 */
 	@Override
-	public PWiki addPageToBook(PWikiBook book, PWikiPage page) {
+	public PWikiBook addPageToBook(PWikiBook book, PWikiPage page) {
 		return wikiBookService.addPageToBook(book.getId(), page.getId());
 	}
 
@@ -147,7 +147,7 @@ public class PWikiBookDaoRetrofit implements IPWikiBookDao {
 	 * PWikiBook, ir.co.dpq.pluf.wiki.PWikiPage)
 	 */
 	@Override
-	public PWikiPage deletePageFromBook(PWikiBook book, PWikiPage page) {
+	public PWikiBook deletePageFromBook(PWikiBook book, PWikiPage page) {
 		return wikiBookService.deletePageFromBook(book.getId(), page.getId());
 	}
 
@@ -273,6 +273,30 @@ public class PWikiBookDaoRetrofit implements IPWikiBookDao {
 	@Override
 	public void getBookInteresteds(PWikiBook book, PPaginatorParameter param,
 			IPCallback<IPPaginatorPage<PUser>> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public PWikiBook addInterestedUser(PWikiBook book) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PWikiBook deleteInterestedUser(PWikiBook book) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IPPaginatorPage<PWikiPageItem> getBookPages(Long bookId, PPaginatorParameter param) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void getBookPages(Long bookId, PPaginatorParameter param, IPPaginatorPage<PWikiPageItem> callback) {
 		// TODO Auto-generated method stub
 		
 	}
