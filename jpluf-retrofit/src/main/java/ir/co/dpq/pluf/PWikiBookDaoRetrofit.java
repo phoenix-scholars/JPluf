@@ -105,17 +105,6 @@ public class PWikiBookDaoRetrofit implements IPWikiBookDao {
 		return null;
 	}
 
-	@Override
-	public PWikiPage addBookToCategory(PWikiBook book, PCategory category) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public PWikiPage deleteCategoryFromBook(PWikiBook book, PCategory category) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<PCategory> getBookCategories(PWikiBook book) {
@@ -146,7 +135,7 @@ public class PWikiBookDaoRetrofit implements IPWikiBookDao {
 	 * PWikiBook, ir.co.dpq.pluf.wiki.PWikiPage)
 	 */
 	@Override
-	public PWikiPage addPageToBook(PWikiBook book, PWikiPage page) {
+	public PWiki addPageToBook(PWikiBook book, PWikiPage page) {
 		return wikiBookService.addPageToBook(book.getId(), page.getId());
 	}
 
@@ -163,18 +152,6 @@ public class PWikiBookDaoRetrofit implements IPWikiBookDao {
 	}
 
 	@Override
-	public PWikiPage addInterestedUser(PWikiBook book) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public PWikiPage deleteInterestedUser(PWikiBook book) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public IPPaginatorPage<PUser> getBookInteresteds(PWikiBook book, PPaginatorParameter param) {
 		// TODO Auto-generated method stub
 		return null;
@@ -183,6 +160,121 @@ public class PWikiBookDaoRetrofit implements IPWikiBookDao {
 	public PWikiBookDaoRetrofit setWikiBookService(IRWikiBookService wikiBookService) {
 		this.wikiBookService = wikiBookService;
 		return this;
+	}
+
+	@Override
+	public void createWikiBook(PWikiBook book, IPCallback<PWikiBook> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getWikiBook(Long bookId, IPCallback<PWikiBook> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateWikiBook(PWikiBook book, IPCallback<PWikiBook> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteWikiBook(PWikiBook book, IPCallback<PWikiBook> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void findWikiBook(PPaginatorParameter param, IPCallback<IPPaginatorPage<PWikiBook>> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addLabelToBook(PWikiBook book, PLabel label, IPCallback<PWikiBook> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getBookLabels(PWikiBook book, IPCallback<List<PLabel>> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteLabelFromBook(PWikiBook book, PLabel label, IPCallback<PWikiBook> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public PWikiBook addBookToCategory(PWikiBook book, PCategory category) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addBookToCategory(PWikiBook book, PCategory category, IPCallback<PWikiBook> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public PWikiBook deleteCategoryFromBook(PWikiBook book, PCategory category) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteCategoryFromBook(PWikiBook book, PCategory category, IPCallback<PWikiBook> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getBookCategories(PWikiBook book, IPCallback<List<PCategory>> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getBookPages(PWikiBook book, PPaginatorParameter param, IPPaginatorPage<PWikiPageItem> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addPageToBook(PWikiBook book, PWikiPage page, IPCallback<PWikiBook> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public PWikiBook deletePageFromBook(PWikiBook book, PWikiPage page, IPCallback<PWikiBook> callback) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addInterestedUser(PWikiBook book, IPCallback<PWikiBook> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteInterestedUser(PWikiBook book, IPCallback<PWikiBook> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getBookInteresteds(PWikiBook book, PPaginatorParameter param,
+			IPCallback<IPPaginatorPage<PUser>> callback) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
