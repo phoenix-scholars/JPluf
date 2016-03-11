@@ -1,5 +1,8 @@
 package ir.co.dpq.pluf;
 
+import static ir.co.dpq.pluf.retrofit.wiki.WAssert.*;
+import static ir.co.dpq.pluf.retrofit.wiki.WUtil.*;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +16,9 @@ import ir.co.dpq.pluf.retrofit.wiki.PWikiPageItemPaginatorPage;
 import ir.co.dpq.pluf.retrofit.wiki.RWikiBook;
 import ir.co.dpq.pluf.retrofit.wiki.RWikiBookPaginatorPage;
 import ir.co.dpq.pluf.user.PUser;
+import ir.co.dpq.pluf.wiki.IPWikiBookAsyncDao;
 import ir.co.dpq.pluf.wiki.IPWikiBookDao;
+import ir.co.dpq.pluf.wiki.IPWikiBookSyncDao;
 import ir.co.dpq.pluf.wiki.PWikiBook;
 import ir.co.dpq.pluf.wiki.PWikiPage;
 import ir.co.dpq.pluf.wiki.PWikiPageItem;
@@ -23,10 +28,13 @@ import retrofit.client.Response;
 
 /**
  * 
- * @author maso
+ * @note این مدل د پیاده سازی‌های بعدی به دو قسمت هم زمان و غیر هم زمان تقسیم
+ *       می‌شود.
+ * 
+ * @author maso<mostafa.barmshory@dpq.co.ir>
  *
  */
-public class PWikiBookDaoRetrofit implements IPWikiBookDao {
+public class PWikiBookDaoRetrofit implements IPWikiBookDao, IPWikiBookSyncDao, IPWikiBookAsyncDao {
 
 	private IRWikiBookService wikiBookService;
 
@@ -39,7 +47,8 @@ public class PWikiBookDaoRetrofit implements IPWikiBookDao {
 	 */
 	@Override
 	public PWikiBook createWikiBook(PWikiBook book) {
-		RWikiBook rbook = Util.toRObject(book);
+		assertNotNull(book, "book is empty");
+		RWikiBook rbook = toRObject(book);
 		return wikiBookService.createWikiBook(rbook.toMap());
 	}
 
@@ -52,9 +61,11 @@ public class PWikiBookDaoRetrofit implements IPWikiBookDao {
 	 */
 	@Override
 	public void createWikiBook(PWikiBook book, final IPCallback<PWikiBook> callback) {
-		RWikiBook rbook = Util.toRObject(book);
+		if (callback == null)
+			return;
+		assertNotNull(book, "book is empty");
+		RWikiBook rbook = toRObject(book);
 		wikiBookService.createWikiBook(rbook.toMap(), new Callback<RWikiBook>() {
-
 			@Override
 			public void success(RWikiBook t, Response response) {
 				callback.success(t);
@@ -62,7 +73,7 @@ public class PWikiBookDaoRetrofit implements IPWikiBookDao {
 
 			@Override
 			public void failure(RetrofitError error) {
-				callback.failure(new PException("Fail to create book", error));
+				callback.failure(parsException(error));
 			}
 		});
 	}
@@ -88,7 +99,7 @@ public class PWikiBookDaoRetrofit implements IPWikiBookDao {
 
 			@Override
 			public void failure(RetrofitError error) {
-				callback.failure(new PException("Fail to create book", error));
+				callback.failure(parsException(error));
 			}
 		});
 	}
@@ -102,7 +113,7 @@ public class PWikiBookDaoRetrofit implements IPWikiBookDao {
 	 */
 	@Override
 	public PWikiBook updateWikiBook(PWikiBook book) {
-		RWikiBook rbook = Util.toRObject(book);
+		RWikiBook rbook = toRObject(book);
 		return wikiBookService.updateWikiBook(rbook.getId(), rbook.toMap());
 	}
 
@@ -115,7 +126,7 @@ public class PWikiBookDaoRetrofit implements IPWikiBookDao {
 	 */
 	@Override
 	public void updateWikiBook(PWikiBook book, final IPCallback<PWikiBook> callback) {
-		RWikiBook rbook = Util.toRObject(book);
+		RWikiBook rbook = toRObject(book);
 		wikiBookService.updateWikiBook(rbook.getId(), rbook.toMap(), new Callback<RWikiBook>() {
 
 			@Override
@@ -125,7 +136,7 @@ public class PWikiBookDaoRetrofit implements IPWikiBookDao {
 
 			@Override
 			public void failure(RetrofitError error) {
-				callback.failure(new PException("Fail to create book", error));
+				callback.failure(parsException(error));
 			}
 		});
 	}
@@ -159,7 +170,7 @@ public class PWikiBookDaoRetrofit implements IPWikiBookDao {
 
 			@Override
 			public void failure(RetrofitError error) {
-				callback.failure(new PException("Fail to create book", error));
+				callback.failure(parsException(error));
 			}
 		});
 	}
@@ -193,7 +204,7 @@ public class PWikiBookDaoRetrofit implements IPWikiBookDao {
 
 			@Override
 			public void failure(RetrofitError error) {
-				callback.failure(new PException("Fail to create book", error));
+				callback.failure(parsException(error));
 			}
 		});
 	}
@@ -259,7 +270,7 @@ public class PWikiBookDaoRetrofit implements IPWikiBookDao {
 
 			@Override
 			public void failure(RetrofitError error) {
-				callback.failure(new PException("Fail to create book", error));
+				callback.failure(parsException(error));
 			}
 		});
 	}

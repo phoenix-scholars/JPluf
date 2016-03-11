@@ -1,5 +1,6 @@
 package ir.co.dpq.pluf;
 
+import static ir.co.dpq.pluf.retrofit.wiki.WUtil.*;
 import java.util.List;
 
 import ir.co.dpq.pluf.km.PCategory;
@@ -29,7 +30,7 @@ public class PWikiPageDaoRetrofit implements IPWikiPageDao {
 	 */
 	@Override
 	public PWikiPage createWikiPage(PWikiPage page) {
-		RWikiPage rbook = Util.toRObject(page);
+		RWikiPage rbook = toRObject(page);
 		return wikiPageService.createWikiPage(rbook.toMap());
 	}
 
