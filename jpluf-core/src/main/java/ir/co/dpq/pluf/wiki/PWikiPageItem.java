@@ -1,5 +1,7 @@
 package ir.co.dpq.pluf.wiki;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,7 +12,12 @@ import javax.persistence.Table;
 @Entity(name = "wiki_page")
 @Table(name = "wiki_page")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-public class PWikiPageItem {
+public class PWikiPageItem implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6097786488560382398L;
 
 	@Id
 	@Column(name = "page_id")
