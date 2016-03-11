@@ -52,9 +52,10 @@ public interface IPWikiBookDao {
 	void getBookCategories(PWikiBook book, IPCallback<List<PCategory>> callback);
 
 	IPPaginatorPage<PWikiPageItem> getBookPages(PWikiBook book, PPaginatorParameter param);
-	IPPaginatorPage<PWikiPageItem> getBookPages(Long bookId, PPaginatorParameter param);
-	void getBookPages(PWikiBook book, PPaginatorParameter param, IPPaginatorPage<PWikiPageItem> callback);
-	void getBookPages(Long bookId, PPaginatorParameter param, IPPaginatorPage<PWikiPageItem> callback);
+	void getBookPages(PWikiBook book, PPaginatorParameter param, IPCallback<IPPaginatorPage<PWikiPageItem>> callback);
+
+//	IPPaginatorPage<PWikiPageItem> getBookPages(Long bookId, PPaginatorParameter param);
+//	void getBookPages(Long bookId, PPaginatorParameter param, IPPaginatorPage<PWikiPageItem> callback);
 
 	PWikiBook addPageToBook(PWikiBook book, PWikiPage page);
 	void addPageToBook(PWikiBook book, PWikiPage page, IPCallback<PWikiBook> callback);

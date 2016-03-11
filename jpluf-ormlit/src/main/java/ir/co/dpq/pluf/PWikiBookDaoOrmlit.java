@@ -329,24 +329,6 @@ public class PWikiBookDaoOrmlit implements IPWikiBookDao {
 	}
 
 	@Override
-	public IPPaginatorPage<PWikiPageItem> getBookPages(Long bookId, PPaginatorParameter param) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void getBookPages(PWikiBook book, PPaginatorParameter param, IPPaginatorPage<PWikiPageItem> callback) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void getBookPages(Long bookId, PPaginatorParameter param, IPPaginatorPage<PWikiPageItem> callback) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void addPageToBook(PWikiBook book, PWikiPage page, IPCallback<PWikiBook> callback) {
 		// TODO Auto-generated method stub
 		
@@ -374,6 +356,13 @@ public class PWikiBookDaoOrmlit implements IPWikiBookDao {
 	public void getBookInteresteds(PWikiBook book, PPaginatorParameter param,
 			IPCallback<IPPaginatorPage<PUser>> callback) {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void getBookPages(PWikiBook book, PPaginatorParameter param,
+			IPCallback<IPPaginatorPage<PWikiPageItem>> callback) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

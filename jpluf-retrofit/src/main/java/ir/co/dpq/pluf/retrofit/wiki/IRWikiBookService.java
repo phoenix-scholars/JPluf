@@ -7,8 +7,8 @@ import ir.co.dpq.pluf.km.PCategory;
 import ir.co.dpq.pluf.km.PLabel;
 import ir.co.dpq.pluf.retrofit.user.RUser;
 import ir.co.dpq.pluf.user.PUser;
-import ir.co.dpq.pluf.wiki.PWikiPage;
 import ir.co.dpq.pluf.wiki.PWikiPageItem;
+import retrofit.Callback;
 import retrofit.http.DELETE;
 import retrofit.http.FieldMap;
 import retrofit.http.FormUrlEncoded;
@@ -30,18 +30,35 @@ public interface IRWikiBookService {
 	@POST("/api/wiki/book/create")
 	RWikiBook createWikiBook(@FieldMap Map<String, Object> map);
 
+	@FormUrlEncoded
+	@POST("/api/wiki/book/create")
+	void createWikiBook(@FieldMap Map<String, Object> map, Callback<RWikiBook> callback);
+
 	@GET("/api/wiki/book/{bookId}")
 	RWikiBook getWikiBook(@Path("bookId") long bookId);
+
+	@GET("/api/wiki/book/{bookId}")
+	void getWikiBook(@Path("bookId") long bookId, Callback<RWikiBook> callback);
 
 	@FormUrlEncoded
 	@POST("/api/wiki/book/{bookId}")
 	RWikiBook updateWikiBook(@Path("bookId") long bookId, @FieldMap Map<String, Object> map);
 
+	@FormUrlEncoded
+	@POST("/api/wiki/book/{bookId}")
+	void updateWikiBook(@Path("bookId") long bookId, @FieldMap Map<String, Object> map, Callback<RWikiBook> callback);
+
 	@DELETE("/api/wiki/book/{bookId}")
 	RWikiBook deleteWikiBook(@Path("bookId") long id);
 
+	@DELETE("/api/wiki/book/{bookId}")
+	void deleteWikiBook(@Path("bookId") long id, Callback<RWikiBook> callback);
+
 	@GET("/api/wiki/book/find")
 	RWikiBookPaginatorPage findWikiBook(@QueryMap Map<String, Object> params);
+
+	@GET("/api/wiki/book/find")
+	void findWikiBook(@QueryMap Map<String, Object> params, Callback<RWikiBookPaginatorPage> callback);
 
 	@POST("/api/wiki/book/{bookId}/label/{labelId}")
 	RWikiBook addLabelToBook(@Path("bookId") long bookId, @Path("labelId") long labelId);
@@ -63,6 +80,9 @@ public interface IRWikiBookService {
 
 	@GET("/api/wiki/book/{bookId}/pages")
 	List<PWikiPageItem> getBookPages(@Path("bookId") long bookId);
+	
+	@GET("/api/wiki/book/{bookId}/pages")
+	void getBookPages(@Path("bookId") long bookId, Callback<List<PWikiPageItem>> callbac);
 
 	@POST("/api/wiki/book/{bookId}/page/{pageId}")
 	RWikiBook addPageToBook(@Path("bookId") long bookId, @Path("pageId") long pageId);
