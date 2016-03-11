@@ -353,9 +353,8 @@ public class PWikiBookDaoRetrofit implements IPWikiBookDao {
 	}
 
 	@Override
-	public PWikiBook deletePageFromBook(PWikiBook book, PWikiPage page, IPCallback<PWikiBook> callback) {
+	public void deletePageFromBook(PWikiBook book, PWikiPage page, IPCallback<PWikiBook> callback) {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
