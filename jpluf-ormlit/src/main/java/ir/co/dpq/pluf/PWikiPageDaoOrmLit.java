@@ -150,4 +150,64 @@ public class PWikiPageDaoOrmLit implements IPWikiPageDao {
 		this.wikiPageDao = wikiPageDao;
 	}
 
+	@Override
+	public void createWikiPage(PWikiPage page, IPCallback<PWikiPage> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getWikiPage(Long id, IPCallback<PWikiPage> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteWikiPage(PWikiPage page, IPCallback<PWikiPage> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void findWikiPage(PPaginatorParameter param, IPCallback<IPPaginatorPage<PWikiPage>> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addLabelToPage(PWikiPage page, PLabel label, IPCallback<PWikiPage> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getPageLabels(PWikiPage page, IPCallback<List<PLabel>> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteLabelFromPage(PWikiPage page, PLabel label, IPCallback<PWikiPage> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addCategoryToPage(PWikiPage page, PCategory category, IPCallback<PWikiPage> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteCategoryFromPage(PWikiPage page, PCategory category, IPCallback<PWikiPage> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getPageCategories(PWikiPage page, IPCallback<List<PCategory>> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
