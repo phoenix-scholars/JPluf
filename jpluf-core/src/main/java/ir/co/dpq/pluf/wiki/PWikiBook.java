@@ -1,5 +1,6 @@
 package ir.co.dpq.pluf.wiki;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,7 +12,12 @@ import javax.persistence.TemporalType;
 
 @Entity(name="wiki_book")
 @Table(name = "wiki_book")
-public class PWikiBook {
+public class PWikiBook implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2910760560975593018L;
 
 	@Id
 	@Column(name = "book_id", nullable = false)

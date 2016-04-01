@@ -54,6 +54,9 @@ public interface IRWikiPageService {
 
 	@GET("/api/wiki/page/{pageId}")
 	RWikiPage getWikiPage(@Path("pageId") long id);
+	
+	@GET("/api/wiki/page/{pageId}")
+	void getWikiPage(@Path("pageId") long id, Callback<RWikiPage> callback);
 
 	@DELETE("/api/wiki/page/{pageId}")
 	RWikiPage deleteWikiPage(@Path("pageId") long id);

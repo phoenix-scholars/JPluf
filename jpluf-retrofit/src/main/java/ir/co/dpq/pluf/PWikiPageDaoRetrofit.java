@@ -11,6 +11,9 @@ import ir.co.dpq.pluf.retrofit.wiki.IRWikiPageService;
 import ir.co.dpq.pluf.retrofit.wiki.RWikiPage;
 import ir.co.dpq.pluf.wiki.IPWikiPageDao;
 import ir.co.dpq.pluf.wiki.PWikiPage;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * 
@@ -115,8 +118,19 @@ public class PWikiPageDaoRetrofit implements IPWikiPageDao {
 	}
 
 	@Override
-	public void getWikiPage(Long id, IPCallback<PWikiPage> callback) {
-		// TODO Auto-generated method stub
+	public void getWikiPage(Long id, final IPCallback<PWikiPage> callback) {
+		wikiPageService.getWikiPage(id, new Callback<RWikiPage>() {
+
+			@Override
+			public void success(RWikiPage t, Response response) {
+				callback.success(t);
+			}
+
+			@Override
+			public void failure(RetrofitError error) {
+				callback.failure(parsException(error));
+			}
+		});
 		
 	}
 
