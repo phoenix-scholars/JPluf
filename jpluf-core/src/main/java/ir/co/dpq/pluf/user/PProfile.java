@@ -10,16 +10,16 @@ import java.util.Date;
  */
 public class PProfile {
 
-	long id;
+	Long id;
 
-	long user;
+	Long user;
 
 	/**
 	 * سطح یک کار بر را تعیین می‌کند.
 	 * 
 	 * @see #getLevel()
 	 */
-	long level;
+	Long level;
 
 	long accessCount;
 
@@ -49,7 +49,7 @@ public class PProfile {
 
 	Date modification;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 

@@ -20,7 +20,7 @@ public class PUserItem {
 
 	@Id
 	@Column(name = "_id")
-	private long id;
+	private Long id;
 
 	@Column(name = "login")
 	private String login;
@@ -31,7 +31,7 @@ public class PUserItem {
 	@Column(name = "last_name")
 	private String lastName;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 

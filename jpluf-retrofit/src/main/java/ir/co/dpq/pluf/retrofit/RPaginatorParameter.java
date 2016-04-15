@@ -54,4 +54,9 @@ public class RPaginatorParameter extends PPaginatorParameter implements IRObject
 		return pmap;
 	}
 
+	@Override
+	public Long getId() {
+		throw new PException("Pagination is not a real object");
+	}
+
 }
