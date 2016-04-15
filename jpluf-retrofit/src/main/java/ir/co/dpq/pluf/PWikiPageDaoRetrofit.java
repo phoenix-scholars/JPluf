@@ -11,6 +11,9 @@ import ir.co.dpq.pluf.retrofit.wiki.IRWikiPageService;
 import ir.co.dpq.pluf.retrofit.wiki.RWikiPage;
 import ir.co.dpq.pluf.wiki.IPWikiPageDao;
 import ir.co.dpq.pluf.wiki.PWikiPage;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * 
@@ -106,6 +109,77 @@ public class PWikiPageDaoRetrofit implements IPWikiPageDao {
 
 	public void setWikiPageService(IRWikiPageService wikiPageService) {
 		this.wikiPageService = wikiPageService;
+	}
+
+	@Override
+	public void createWikiPage(PWikiPage page, IPCallback<PWikiPage> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getWikiPage(Long id, final IPCallback<PWikiPage> callback) {
+		wikiPageService.getWikiPage(id, new Callback<RWikiPage>() {
+
+			@Override
+			public void success(RWikiPage t, Response response) {
+				callback.success(t);
+			}
+
+			@Override
+			public void failure(RetrofitError error) {
+				callback.failure(parsException(error));
+			}
+		});
+		
+	}
+
+	@Override
+	public void deleteWikiPage(PWikiPage page, IPCallback<PWikiPage> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void findWikiPage(PPaginatorParameter param, IPCallback<IPPaginatorPage<PWikiPage>> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addLabelToPage(PWikiPage page, PLabel label, IPCallback<PWikiPage> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getPageLabels(PWikiPage page, IPCallback<List<PLabel>> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteLabelFromPage(PWikiPage page, PLabel label, IPCallback<PWikiPage> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addCategoryToPage(PWikiPage page, PCategory category, IPCallback<PWikiPage> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteCategoryFromPage(PWikiPage page, PCategory category, IPCallback<PWikiPage> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getPageCategories(PWikiPage page, IPCallback<List<PCategory>> callback) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

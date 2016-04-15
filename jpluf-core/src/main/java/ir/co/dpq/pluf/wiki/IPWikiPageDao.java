@@ -18,26 +18,6 @@ import ir.co.dpq.pluf.km.PLabel;
  * @author maso <mostafa.barmshory@dpq.co.ir>
  *
  */
-public interface IPWikiPageDao {
-
-	PWikiPage createWikiPage(PWikiPage page);
-
-	PWikiPage getWikiPage(Long id);
-
-	PWikiPage deleteWikiPage(PWikiPage page);
-
-	IPPaginatorPage<PWikiPage> findWikiPage(PPaginatorParameter param);
-
-	PWikiPage addLabelToPage(PWikiPage page, PLabel label);
-
-	List<PLabel> getPageLabels(PWikiPage page);
-
-	PWikiPage deleteLabelFromPage(PWikiPage page, PLabel label);
-
-	PWikiPage addCategoryToPage(PWikiPage page, PCategory category);
-	
-	PWikiPage deleteCategoryFromPage(PWikiPage page, PCategory category);
-
-	List<PCategory> getPageCategories(PWikiPage page);
+public interface IPWikiPageDao extends IPWikiPageSyncDao, IPWikiPageAsyncDao{
 
 }
