@@ -118,7 +118,7 @@ public class ContentServiceTest {
 		assertNotNull(uri);
 		File file = new File(uri);
 		assertEquals(true, file.exists());
-		
+
 		PContent cont = new PContent()//
 				.setDescription("description")//
 				.setTitle("title");
@@ -161,7 +161,7 @@ public class ContentServiceTest {
 		assertNotNull(uri);
 		File file = new File(uri);
 		assertEquals(true, file.exists());
-		
+
 		PContent cont = new PContent()//
 				.setDescription("description")//
 				.setTitle("title");
@@ -214,7 +214,7 @@ public class ContentServiceTest {
 		assertNotNull(uri);
 		File file = new File(uri);
 		assertEquals(true, file.exists());
-		
+
 		PContent cont = new PContent()//
 				.setDescription("description")//
 				.setTitle("title");
@@ -268,7 +268,7 @@ public class ContentServiceTest {
 	}
 
 	@Test
-	public void deleteTest() {
+	public void deleteContentTest() {
 		URI uri = null;
 		try {
 			uri = this.getClass().getResource("/saascms/person.png").toURI();
@@ -277,7 +277,7 @@ public class ContentServiceTest {
 		assertNotNull(uri);
 		File file = new File(uri);
 		assertEquals(true, file.exists());
-		
+
 		PContent cont = new PContent()//
 				.setDescription("description")//
 				.setTitle("title");
@@ -300,5 +300,110 @@ public class ContentServiceTest {
 			assertEquals(null, content);
 		} catch (PException e) {
 		}
+	}
+
+	@Test
+	public void downloadContentFileTest() {
+		URI uri = null;
+		try {
+			uri = this.getClass().getResource("/saascms/person.png").toURI();
+		} catch (URISyntaxException e) {
+		}
+		assertNotNull(uri);
+		File file = new File(uri);
+		assertEquals(true, file.exists());
+
+		PContent cont = new PContent()//
+				.setDescription("description")//
+				.setTitle("title");
+
+		PContent newContent = contentService.createContent(cont.toMap(), new TypedFile("image/png", file));
+
+		assertNotNull(newContent);
+		assertEquals(cont.getTitle(), newContent.getTitle());
+		assertEquals(cont.getDescription(), newContent.getDescription());
+		assertEquals(file.getName(), newContent.getFileName());
+		assertNotEquals(new Long(0), newContent.getFileSize());
+		assertNotNull(newContent.getFilePath());
+		assertEquals("image/png", newContent.getMimeType());
+
+		// Update Content file
+		Object obj = contentService.downloadContentFile(newContent.getId());
+		assertNotNull(obj);
+
+	}
+
+	@Test
+	public void updateContentFileByBodyTest() {
+		URI uri = null;
+		try {
+			uri = this.getClass().getResource("/saascms/person.png").toURI();
+		} catch (URISyntaxException e) {
+		}
+		assertNotNull(uri);
+		File file = new File(uri);
+		assertEquals(true, file.exists());
+
+		PContent cont = new PContent()//
+				.setDescription("description")//
+				.setTitle("title");
+
+		PContent newContent = contentService.createContent(cont.toMap(), new TypedFile("image/png", file));
+
+		assertNotNull(newContent);
+		assertEquals(cont.getTitle(), newContent.getTitle());
+		assertEquals(cont.getDescription(), newContent.getDescription());
+		assertEquals(file.getName(), newContent.getFileName());
+		assertNotEquals(new Long(0), newContent.getFileSize());
+		assertNotNull(newContent.getFilePath());
+		assertEquals("image/png", newContent.getMimeType());
+
+		// Update data:
+		uri = null;
+		try {
+			uri = this.getClass().getResource("/saascms/person2.png").toURI();
+		} catch (URISyntaxException e) {
+		}
+		assertNotNull(uri);
+		File newFile = new File(uri);
+		assertEquals(true, newFile.exists());
+		final String uTitle = "updated" + newContent.getTitle();
+		final String uDescription = "updated" + newContent.getDescription();
+		final String uFileName = "updated" + newContent.getFileName();
+		final String uMimeType = "updated" + newContent.getMimeType();
+
+		newContent.setTitle(uTitle)//
+				.setDescription(uDescription)//
+				.setFileName(uFileName)//
+				.setMimeType(uMimeType);
+
+		PContent content = contentService.updateContentFileByAttach(newContent.getId(),
+				new TypedFile("image/png", newFile));
+
+		assertNotNull(content);
+		assertEquals(newContent.getId(), content.getId());
+		assertEquals(newContent.getTitle(), content.getTitle());
+		assertEquals(newContent.getDescription(), content.getDescription());
+		assertEquals(newContent.getFilePath(), content.getFilePath());
+		assertEquals(newContent.getDownloads(), content.getDownloads());
+		assertEquals(newContent.getTenantId(), content.getTenantId());
+		assertEquals(newContent.getSubmitterId(), content.getSubmitterId());
+
+		assertEquals(newFile.getName(), content.getFileName());
+		assertEquals("image/png", content.getMimeType());
+		assertNotEquals(newContent.getFileSize(), content.getFileSize());
+
+		trash.add(newContent);
+
+	}
+
+	@Test
+	public void updateContentFileByAttachTest() {
+		throw new RuntimeException("Not implemented yet!");
+	}
+
+	@Test
+	public void findContentTest() {
+		throw new RuntimeException("Not implemented yet!");
 	}
 }

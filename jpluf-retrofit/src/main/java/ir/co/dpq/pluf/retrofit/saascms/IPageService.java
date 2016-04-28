@@ -15,9 +15,9 @@ import retrofit.mime.TypedFile;
 
 public interface IPageService {
 
-	@Multipart
+	@FormUrlEncoded
 	@POST("/api/saascms/page/new")
-	PPage createPage(@PartMap Map<String, Object> map, @Part("file") TypedFile file);
+	PPage createPage(@FieldMap Map<String, Object> map);
 
 	@GET("/api/saascms/page/{pageId}")
 	PPage getPage(@Path("pageId") Long id);
@@ -26,11 +26,21 @@ public interface IPageService {
 	@POST("/api/saascms/page/{pageId}")
 	PPage updatePage(@Path("pageId") Long id, @FieldMap Map<String, Object> map);
 
-	@Multipart
-	@POST("/api/saascms/page/{pageId}")
-	PPage updatePageFile(@Path("pageId") Long id, @PartMap Map<String, Object> map, @Part("file") TypedFile file);
-
 	@DELETE("/api/saascms/page/{pageId}")
 	PPage deletePage(@Path("pageId") Long id);
+	
+	@GET("/api/saascms/page/{pageName}")
+	PPage getPage(@Path("pageName") String pageName);
+	
+	@FormUrlEncoded
+	@POST("/api/saascms/page/{pageName}")
+	PPage updatePage(@Path("pageName") String pageName, @FieldMap Map<String, Object> map);
+	
+	@DELETE("/api/saascms/page/{pageName}")
+	PPage deletePage(@Path("pageName") String pageName);
+	
+	@GET("/api/saascms/page/find")
+	PPage findPage(@FieldMap Map<String, Object> params);
+	
 	
 }

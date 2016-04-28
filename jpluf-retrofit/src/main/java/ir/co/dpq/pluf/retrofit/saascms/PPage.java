@@ -26,24 +26,27 @@ public class PPage extends PModel {
 		return name;
 	}
 
-	public void setName(String name) {
+	public PPage setName(String name) {
 		this.name = name;
+		return this;
 	}
 
 	public Long getContentId() {
 		return content;
 	}
 
-	public void setContentId(Long content) {
+	public PPage setContentId(Long content) {
 		this.content = content;
+		return this;
 	}
 
 	public Long getTenantId() {
 		return tenant;
 	}
 
-	public void setTenantId(Long tenant) {
+	public PPage setTenantId(Long tenant) {
 		this.tenant = tenant;
+		return this;
 	}
 
 	public Map<String, Object> toMap() {
@@ -53,8 +56,6 @@ public class PPage extends PModel {
 			map.put("name", getName());
 		if (getContentId() != null)
 			map.put("content", getContentId());
-		if (getTenantId() != null)
-			map.put("tenant", getTenantId());
 
 		return map;
 	}
