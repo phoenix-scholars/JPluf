@@ -2,6 +2,7 @@ package ir.co.dpq.pluf.retrofit.saascms;
 
 import java.util.Map;
 
+import retrofit.client.Response;
 import retrofit.http.Body;
 import retrofit.http.DELETE;
 import retrofit.http.FieldMap;
@@ -38,13 +39,12 @@ public interface IContentService {
 	PContent findContent(@FieldMap Map<String, Object> params);
 	
 	@GET("/api/saascms/content/{contentId}/download")
-	Object downloadContentFile(@Path("contentId") Long id);
+	Response downloadContentFile(@Path("contentId") Long id);
 	
 	@Multipart
 	@POST("/api/saascms/content/{contentId}/download")
-	PContent updateContentFileByAttach(@Path("contentId") Long id, @Part("file") TypedFile file);
+	PContent updateContentFileByAttach(@Path("contentId") Long id, @PartMap Map<String, Object> params, @Part("file") TypedFile file);
 	
-	@Multipart
 	@POST("/api/saascms/content/{contentId}/download")
 	PContent updateContentFileByBody(@Path("contentId") Long id, @Body TypedFile file);
 	

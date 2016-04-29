@@ -26,6 +26,7 @@ import ir.co.dpq.pluf.retrofit.saascms.IContentService;
 import ir.co.dpq.pluf.retrofit.saascms.PContent;
 import ir.co.dpq.pluf.retrofit.user.IRUserService;
 import retrofit.RestAdapter;
+import retrofit.client.Response;
 import retrofit.converter.GsonConverter;
 import retrofit.mime.TypedFile;
 
@@ -327,10 +328,56 @@ public class ContentServiceTest {
 		assertNotNull(newContent.getFilePath());
 		assertEquals("image/png", newContent.getMimeType());
 
-		// Update Content file
-		Object obj = contentService.downloadContentFile(newContent.getId());
-		assertNotNull(obj);
+		// Download Content file
+		Response response = contentService.downloadContentFile(newContent.getId());
 
+		assertNotNull(response);
+		assertEquals(200, response.getStatus());
+		assertEquals("image/png", response.getBody().mimeType());
+		assertNotEquals(new Long(0), (Long) response.getBody().length());
+		
+		PContent content = contentService.getContent(newContent.getId());
+		assertNotNull(content);
+		assertEquals(new Long(1), content.getDownloads());
+		assertEquals(newContent.getId(), content.getId());
+		assertEquals(newContent.getTitle(), content.getTitle());
+		assertEquals(newContent.getDescription(), content.getDescription());
+		assertEquals(newContent.getFilePath(), content.getFilePath());
+		assertEquals(newContent.getTenantId(), content.getTenantId());
+		assertEquals(newContent.getSubmitterId(), content.getSubmitterId());
+
+		// Change file of content and download it again
+		uri = null;
+		try {
+			uri = this.getClass().getResource("/saascms/sample.txt").toURI();
+		} catch (URISyntaxException e) {
+		}
+		assertNotNull(uri);
+		File newFile = new File(uri);
+		assertEquals(true, newFile.exists());
+
+		// Change file of content
+		content = contentService.updateContentFileByAttach(newContent.getId(), newContent.toMap(),
+				new TypedFile("text/plain", newFile));
+		// Download Content file
+		response = contentService.downloadContentFile(newContent.getId());
+
+		assertNotNull(response);
+		assertEquals(200, response.getStatus());
+		assertEquals("text/plain;charset=UTF-8", response.getBody().mimeType());
+		assertNotEquals(new Long(0), (Long) response.getBody().length());
+		
+		content = contentService.getContent(newContent.getId());
+		assertNotNull(content);
+		assertEquals(new Long(2), content.getDownloads());
+		assertEquals(newContent.getId(), content.getId());
+		assertEquals(newContent.getTitle(), content.getTitle());
+		assertEquals(newContent.getDescription(), content.getDescription());
+		assertEquals(newContent.getFilePath(), content.getFilePath());
+		assertEquals(newContent.getTenantId(), content.getTenantId());
+		assertEquals(newContent.getSubmitterId(), content.getSubmitterId());
+		
+		trash.add(newContent);
 	}
 
 	@Test
@@ -361,7 +408,67 @@ public class ContentServiceTest {
 		// Update data:
 		uri = null;
 		try {
-			uri = this.getClass().getResource("/saascms/person2.png").toURI();
+			uri = this.getClass().getResource("/saascms/sample.txt").toURI();
+		} catch (URISyntaxException e) {
+		}
+		assertNotNull(uri);
+		File newFile = new File(uri);
+		assertEquals(true, newFile.exists());
+
+		PContent content = contentService.updateContentFileByBody(newContent.getId(),
+				new TypedFile("image/png", newFile));
+
+		// @Note: Hadi: 1395-02-10:
+		// تغییر محتوای فایل از طریق ارسال متن فایل در بدنه درخواست
+		// تنها فیلد اندازه را تغییر می‌دهد هیچ تغییر در سایر فیلدها ایجاد
+		// نمی‌کند
+		// حتی mime_type نیز تغییر نمی‌کند.
+		assertNotNull(content);
+		assertEquals(newContent.getId(), content.getId());
+		assertEquals(newContent.getTitle(), content.getTitle());
+		assertEquals(newContent.getDescription(), content.getDescription());
+		assertEquals(newContent.getFilePath(), content.getFilePath());
+		assertEquals(newContent.getDownloads(), content.getDownloads());
+		assertEquals(newContent.getTenantId(), content.getTenantId());
+		assertEquals(newContent.getSubmitterId(), content.getSubmitterId());
+		assertEquals(newContent.getFileName(), content.getFileName());
+		assertEquals(newContent.getMimeType(), content.getMimeType());
+
+		assertNotEquals(newContent.getFileSize(), content.getFileSize());
+
+		trash.add(newContent);
+
+	}
+
+	@Test
+	public void updateContentFileByAttachTest() {
+		URI uri = null;
+		try {
+			uri = this.getClass().getResource("/saascms/person.png").toURI();
+		} catch (URISyntaxException e) {
+		}
+		assertNotNull(uri);
+		File file = new File(uri);
+		assertEquals(true, file.exists());
+
+		PContent cont = new PContent()//
+				.setDescription("description")//
+				.setTitle("title");
+
+		PContent newContent = contentService.createContent(cont.toMap(), new TypedFile("image/png", file));
+
+		assertNotNull(newContent);
+		assertEquals(cont.getTitle(), newContent.getTitle());
+		assertEquals(cont.getDescription(), newContent.getDescription());
+		assertEquals(file.getName(), newContent.getFileName());
+		assertNotEquals(new Long(0), newContent.getFileSize());
+		assertNotNull(newContent.getFilePath());
+		assertEquals("image/png", newContent.getMimeType());
+
+		// Update data:
+		uri = null;
+		try {
+			uri = this.getClass().getResource("/saascms/sample.txt").toURI();
 		} catch (URISyntaxException e) {
 		}
 		assertNotNull(uri);
@@ -377,8 +484,8 @@ public class ContentServiceTest {
 				.setFileName(uFileName)//
 				.setMimeType(uMimeType);
 
-		PContent content = contentService.updateContentFileByAttach(newContent.getId(),
-				new TypedFile("image/png", newFile));
+		PContent content = contentService.updateContentFileByAttach(newContent.getId(), newContent.toMap(),
+				new TypedFile("text/plain", newFile));
 
 		assertNotNull(content);
 		assertEquals(newContent.getId(), content.getId());
@@ -390,16 +497,10 @@ public class ContentServiceTest {
 		assertEquals(newContent.getSubmitterId(), content.getSubmitterId());
 
 		assertEquals(newFile.getName(), content.getFileName());
-		assertEquals("image/png", content.getMimeType());
+		assertEquals("text/plain", content.getMimeType());
 		assertNotEquals(newContent.getFileSize(), content.getFileSize());
 
 		trash.add(newContent);
-
-	}
-
-	@Test
-	public void updateContentFileByAttachTest() {
-		throw new RuntimeException("Not implemented yet!");
 	}
 
 	@Test
