@@ -25,6 +25,7 @@ import ir.co.dpq.pluf.retrofit.PErrorHandler;
 import ir.co.dpq.pluf.retrofit.saascms.IContentService;
 import ir.co.dpq.pluf.retrofit.saascms.PContent;
 import ir.co.dpq.pluf.retrofit.user.IRUserService;
+import ir.co.dpq.pluf.retrofit.user.RUser;
 import retrofit.RestAdapter;
 import retrofit.client.Response;
 import retrofit.converter.GsonConverter;
@@ -35,6 +36,7 @@ public class ContentServiceTest {
 	private IRUserService userService;
 	private IContentService contentService;
 
+	private RUser user;
 	private List<PContent> trash;
 
 	@Before
@@ -67,9 +69,9 @@ public class ContentServiceTest {
 	@Before
 	public void loginWithAdmin() {
 		// Login
-		// PUser user = userService.login(TestConfig.getAdminLogin(),
-		// TestConfig.getAdminPass());
-		// assertNotNull(user);
+		 user = userService.login(TestConfig.getAdminLogin(),
+		 TestConfig.getAdminPass());
+		 assertNotNull(user);
 	}
 
 	@After
@@ -79,6 +81,9 @@ public class ContentServiceTest {
 			contentService.deleteContent(dev.getId());
 			trash.remove(0);
 		}
+		RUser logoutedUser = userService.logout();
+		assertNotNull(logoutedUser);
+//		assertEquals(user.getLogin(), logoutedUser.getLogin());
 	}
 
 	@Test

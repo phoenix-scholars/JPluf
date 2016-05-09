@@ -27,6 +27,7 @@ import ir.co.dpq.pluf.retrofit.saascms.IPageService;
 import ir.co.dpq.pluf.retrofit.saascms.PContent;
 import ir.co.dpq.pluf.retrofit.saascms.PPage;
 import ir.co.dpq.pluf.retrofit.user.IRUserService;
+import ir.co.dpq.pluf.retrofit.user.RUser;
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
 import retrofit.mime.TypedFile;
@@ -39,6 +40,7 @@ public class PageServiceTest {
 
 	private List<PPage> trash;
 	private PContent content;
+	private RUser user;
 
 	@Before
 	public void init() {
@@ -66,18 +68,18 @@ public class PageServiceTest {
 		this.userService = restAdapter.create(IRUserService.class);
 		this.pageService = restAdapter.create(IPageService.class);
 		this.contentService = restAdapter.create(IContentService.class);
-		
-		content = createContent();
 	}
 
 	@Before
 	public void loginWithAdmin() {
 		// Login
-		// PUser user = userService.login(TestConfig.getAdminLogin(),
-		// TestConfig.getAdminPass());
-		// assertNotNull(user);
+		 user = userService.login(TestConfig.getAdminLogin(),
+		 TestConfig.getAdminPass());
+		 assertNotNull(user);
+		 
+		 content = createContent();
 	}
-	
+
 	public PContent createContent() {
 		URI uri = null;
 		try {
@@ -113,6 +115,9 @@ public class PageServiceTest {
 			trash.remove(0);
 		}
 		contentService.deleteContent(content.getId());
+		RUser logoutedUser = userService.logout();
+		assertNotNull(logoutedUser);
+//		assertEquals(user.getLogin(), logoutedUser.getLogin());
 	}
 
 	@Test
