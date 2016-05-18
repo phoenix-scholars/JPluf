@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import ir.co.dpq.pluf.PException;
+import ir.co.dpq.pluf.TestSettings;
 import ir.co.dpq.pluf.retrofit.PErrorHandler;
 import ir.co.dpq.pluf.retrofit.saascms.IContentService;
 import ir.co.dpq.pluf.retrofit.saascms.IPageService;
@@ -61,7 +62,7 @@ public class PageServiceTest {
 				// تعیین کنترل کننده خطا
 				.setErrorHandler(new PErrorHandler())
 				// تعیین آدرس سایت مورد نظر
-				.setEndpoint(TestConfig.getApiURL())
+				.setEndpoint(TestSettings.getApiURL())
 				// ایجاد یک نمونه
 				.build();
 		// ایجاد سرویس‌ها
@@ -73,8 +74,8 @@ public class PageServiceTest {
 	@Before
 	public void loginWithAdmin() {
 		// Login
-		 user = userService.login(TestConfig.getAdminLogin(),
-		 TestConfig.getAdminPass());
+		 user = userService.login(TestSettings.getAdminLogin(),
+		 TestSettings.getAdminPass());
 		 assertNotNull(user);
 		 
 		 content = createContent();

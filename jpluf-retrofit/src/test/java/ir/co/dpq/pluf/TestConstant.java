@@ -1,14 +1,10 @@
 package ir.co.dpq.pluf;
 
-import static ir.co.dpq.pluf.TestConstant.API_URL;
-import static ir.co.dpq.pluf.test.TestCoreConstant.ADMIN_LOGIN;
-import static ir.co.dpq.pluf.test.TestCoreConstant.ADMIN_PASSWORD;
 import static org.junit.Assert.assertNotNull;
 
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
-import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Test;
@@ -20,7 +16,6 @@ import ir.co.dpq.pluf.retrofit.PErrorHandler;
 import ir.co.dpq.pluf.retrofit.user.IRUserService;
 import ir.co.dpq.pluf.retrofit.wiki.IRWikiBookService;
 import ir.co.dpq.pluf.retrofit.wiki.IRWikiPageService;
-import ir.co.dpq.pluf.retrofit.wiki.RWikiBookPaginatorPage;
 import ir.co.dpq.pluf.test.TestCoreConstant;
 import ir.co.dpq.pluf.user.PUser;
 import ir.co.dpq.pluf.wiki.PWikiBook;
@@ -29,7 +24,7 @@ import retrofit.converter.GsonConverter;
 
 public class TestConstant extends TestCoreConstant {
 
-	public static final String API_URL = "http://localhost:1384";
+	public static final String API_URL = "http://localhost:1395";
 
 	@Test
 	public void test() {
@@ -48,7 +43,7 @@ public class TestConstant extends TestCoreConstant {
 				// تعیین کنترل کننده خطا
 				.setErrorHandler(new PErrorHandler())
 				// تعیین آدرس سایت مورد نظر
-				.setEndpoint("http://dpq.co.ir")
+				.setEndpoint(API_URL)
 				// ایجاد یک نمونه
 				.build();
 		// ایجاد سرویس‌ها

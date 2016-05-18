@@ -1,9 +1,9 @@
-package ir.co.dpq.pluf.tsaascms;
+package ir.co.dpq.pluf;
 
-public class TestConfig {
+public class TestSettings {
 
 	public static String getApiURL() {
-		return "http://localhost:1395";
+		return "http://localhost:1396";
 	}
 
 	public static String getAdminPass() {
