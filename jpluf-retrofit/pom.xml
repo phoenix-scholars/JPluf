@@ -32,6 +32,11 @@
 			<artifactId>jpluf-core-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>javax.persistence</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		<!-- <dependency> -->
 		<!-- <groupId>ir.co.dpq.pluf</groupId> -->
 		<!-- <artifactId>retrofit-pluf</artifactId> -->
