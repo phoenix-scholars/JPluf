@@ -17,7 +17,7 @@ public abstract class RPaginatorPage {
 	/**
 	 * اندیس صفحه جاری را تعیین می‌کند
 	 */
-	@SerializedName("current_p")
+	@SerializedName("current_page")
 	int currentPage;
 
 	/**

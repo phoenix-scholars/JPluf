@@ -24,7 +24,7 @@ import retrofit.converter.GsonConverter;
 
 public class TestConstant extends TestCoreConstant {
 
-	public static final String API_URL = "http://localhost:1395";
+	public static final String API_URL = "http://localhost:8081";
 
 	@Test
 	public void test() {

@@ -3,7 +3,7 @@ package ir.co.dpq.pluf;
 public class TestSettings {
 
 	public static String getApiURL() {
-		return "http://localhost:1396";
+		return "http://localhost:8081";
 	}
 
 	public static String getAdminPass() {
