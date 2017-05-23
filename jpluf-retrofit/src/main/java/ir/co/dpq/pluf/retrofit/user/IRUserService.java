@@ -69,7 +69,7 @@ public interface IRUserService {
 	 * 
 	 * @param callback
 	 */
-	@GET("/api/user/account")
+	@GET("/api/user")
 	void getSessionUser(Callback<RUser> callback);
 
 	/**
@@ -96,7 +96,7 @@ public interface IRUserService {
 	 * @see #getSessionUser(Callback)
 	 * @return کاربر جاری
 	 */
-	@GET("/api/user/account")
+	@GET("/api/user")
 	RUser getSessionUser();
 	
 	/**
@@ -123,7 +123,7 @@ public interface IRUserService {
 	 * @param callback
 	 */
 	@FormUrlEncoded
-	@POST("/api/user/account")
+	@POST("/api/user")
 	void update(@FieldMap Map<String, Object> params, Callback<RUser> callback);
 
 	/**
@@ -134,7 +134,7 @@ public interface IRUserService {
 	 * @return
 	 */
 	@FormUrlEncoded
-	@POST("/api/user/account")
+	@POST("/api/user")
 	RUser update(@FieldMap Map<String, Object> params);
 
 	/**
@@ -160,7 +160,7 @@ public interface IRUserService {
 	 * @param callBack
 	 */
 	@FormUrlEncoded
-	@POST("/api/user/signup")
+	@POST("/api/user/new")
 	void signup(@FieldMap Map<String, Object> params, Callback<RUser> callBack);
 
 	/**
@@ -171,14 +171,14 @@ public interface IRUserService {
 	 * @return
 	 */
 	@FormUrlEncoded
-	@POST("/api/user/signup")
+	@POST("/api/user/new")
 	RUser signup(@FieldMap Map<String, Object> params);
 
 	/**
 	 * @deprecated use {@link #update(Map, Callback)}
 	 */
 	@FormUrlEncoded
-	@POST("/api/user/account")
+	@POST("/api/user")
 	void update(@Field("first_name") String firstName,
 			@Field("last_name") String lastName, @Field("email") String email,
 			@Field("password") String password,
@@ -197,7 +197,7 @@ public interface IRUserService {
 	 * @return
 	 */
 	@FormUrlEncoded
-	@POST("/api/user/account")
+	@POST("/api/user")
 	RUser update(@Field("first_name") String firstName,
 			@Field("last_name") String lastName, @Field("email") String email,
 			@Field("password") String password,
@@ -215,7 +215,7 @@ public interface IRUserService {
 	 * @param callBack
 	 */
 	@FormUrlEncoded
-	@POST("/api/user/signup")
+	@POST("/api/user")
 	void signup(@Field("login") String uername,
 			@Field("password") String password,
 			@Field("first_name") String firstName,
@@ -233,7 +233,7 @@ public interface IRUserService {
 	 */
 	@Deprecated
 	@FormUrlEncoded
-	@POST("/api/user/signup")
+	@POST("/api/user")
 	RUser signup(@Field("login") String uername,
 			@Field("password") String password,
 			@Field("first_name") String firstName,
