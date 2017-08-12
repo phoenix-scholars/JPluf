@@ -17,8 +17,20 @@ public interface IModelDao<T> {
 
 	void update(T object, IPCallback<T> callback);
 
-	void delete(T object, IPCallback<T> callback);
+	void delete(long id, IPCallback<T> callback);
 
 	void find(PPaginatorParameter param, IPCallback<IPPaginatorPage<T>> callback);
+	
+	//*********************************************** Synchronous methods
+	
+	T create(T object);
+
+	T get(long id);
+
+	T update(T object);
+
+	T delete(long id);
+
+	IPPaginatorPage<T> find(PPaginatorParameter param);
 
 }
