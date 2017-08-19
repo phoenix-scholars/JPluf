@@ -60,7 +60,7 @@ public abstract class AbstractModelDaoTest<T> {
 	 * 
 	 * @return
 	 */
-	protected abstract T getNewModel();
+	public abstract T getNewModel();
 
 	/**
 	 * Checks necessary assertions on obj and newObj.
